@@ -76,16 +76,12 @@ if (process.argv[2] == '-e') {
     }
 
 } else {
-    setTimeout(() => {
-        fs.readFile("lib/asci.txt", 'utf8', function (err, data) {
-            if (err) throw err;
-            console.log(data);
-            console.log("[1] Encrypt File");
-            console.log("[2] Decrypt File");
-        });
-
-    }, 3000);
-
+    fs.readFile("lib/asci.txt", 'utf8', function (err, data) {
+        if (err) throw err;
+        console.log(data);
+        console.log("[1] Encrypt File");
+        console.log("[2] Decrypt File");
+    });
 
     rl.question('Select an option: ', (answer) => {
         if (answer == 1) {
