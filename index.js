@@ -17,14 +17,14 @@ function encryptFile(filename) {
         process.exit();
     }
     const encrypted = Buffer.concat([cipher.update(fs.readFileSync(filename)), cipher.final()]);
-    fs.writeFileSync("out/" + filename + '.drmdec', JSON.stringify({
+    fs.writeFileSync(__dirname + "/output/" + filename + '.drmdec', JSON.stringify({
         content: encrypted.toString('hex')
     }));
     console.log("\x1b[31m", "+-------------------------------------------------------");
     console.log(" | Key Hash 1: " + iv.toString('hex'));
     console.log(' | File encrypted successfully');
     console.log(" +-------------------------------------------------------");
-    fs.writeFileSync("out/" + filename + '.key', iv.toString('hex'));
+    fs.writeFileSync(__dirname + "/output/" + filename + '.key', iv.toString('hex'));
     console.log("\x1b[0m");
 }
 function decryptFile(filename, hash) {
@@ -48,7 +48,7 @@ function decryptFile(filename, hash) {
     const decipher = crypto.createDecipheriv(algorithm, secretKey, iv);
     const decrypted = Buffer.concat([decipher.update(encryptedText), decipher.final()]);
 
-    fs.writeFileSync("out/" + filename.replace('.drmdec', ''), decrypted);
+    fs.writeFileSync(__dirname + "/output/" + filename.replace('.drmdec', ''), decrypted);
     console.log("\x1b[32m", 'File decrypted successfully');
 }
 
